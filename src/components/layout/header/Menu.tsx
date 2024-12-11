@@ -4,17 +4,15 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  IconButton,
   Button,
   Avatar,
 } from '@chakra-ui/react'
-import { AddIcon, EditIcon, ExternalLinkIcon, HamburgerIcon, RepeatIcon } from '@chakra-ui/icons'
 import { ChevronDownIcon } from 'lucide-react'
 
 const MenuHam = () => {
   return (
     <MenuWrap>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}  variant='ghost'>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon size={14} />}  variant='ghost' size="sm">
         <span className="sr-only">전체 메뉴</span>
         <Avatar size='sm' name='Kent Dodds' src='https://bit.ly/kent-c-dodds' />
       </MenuButton>
