@@ -5,7 +5,7 @@ import MenuHam from './Menu'
 
 const Header = () => {
   return (
-    <header>
+    <header className='py-2'>
       <Flex className='container items-center'>
         <h1>
           <Link href={'/'}>logo</Link>

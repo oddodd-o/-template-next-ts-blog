@@ -14,7 +14,7 @@ import { ChevronDownIcon } from 'lucide-react'
 const MenuHam = () => {
   return (
     <MenuWrap>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}  variant='ghost'>
         <span className="sr-only">전체 메뉴</span>
         <Avatar size='sm' name='Kent Dodds' src='https://bit.ly/kent-c-dodds' />
       </MenuButton>

@@ -5,6 +5,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --paddingMobile: 20px;
+  --paddingTablet: 30px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -23,5 +26,10 @@ body {
 .container {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 var(--paddingMobile);
+}
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--paddingTablet);
+  }
 }
