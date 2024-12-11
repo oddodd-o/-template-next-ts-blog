@@ -5,7 +5,7 @@ import { Button, Flex, Spacer } from '@chakra-ui/react'
 const Header = () => {
   return (
     <header>
-      <Flex align={'center'} className='container'>
+      <Flex className='container items-center'>
         <h1>
           <Link href={'/'}>logo</Link>
         </h1>
@@ -20,6 +20,7 @@ const Header = () => {
           <Button colorScheme='teal' variant='ghost'>
             나의 정보
           </Button>
+          
         </div>
       </Flex>
     </header>
