@@ -1,38 +1,30 @@
 import React from 'react'
 import {
-  Menu,
+  Menu as MenuWrap,
   MenuButton,
   MenuList,
   MenuItem,
   IconButton,
+  Button,
 } from '@chakra-ui/react'
 import { AddIcon, EditIcon, ExternalLinkIcon, HamburgerIcon, RepeatIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon } from 'lucide-react'
 
-const Menu = () => {
+const MenuHam = () => {
   return (
-    <Menu>
-      <MenuButton
-        as={IconButton}
-        aria-label='Options'
-        icon={<HamburgerIcon />}
-        variant='outline'
-      />
+    <MenuWrap>
+      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+        Actions
+      </MenuButton>
       <MenuList>
-        <MenuItem icon={<AddIcon />} command='⌘T'>
-          New Tab
-        </MenuItem>
-        <MenuItem icon={<ExternalLinkIcon />} command='⌘N'>
-          New Window
-        </MenuItem>
-        <MenuItem icon={<RepeatIcon />} command='⌘⇧N'>
-          Open Closed Tab
-        </MenuItem>
-        <MenuItem icon={<EditIcon />} command='⌘O'>
-          Open File...
-        </MenuItem>
+        <MenuItem>Download</MenuItem>
+        <MenuItem>Create a Copy</MenuItem>
+        <MenuItem>Mark as Draft</MenuItem>
+        <MenuItem>Delete</MenuItem>
+        <MenuItem>Attend a Workshop</MenuItem>
       </MenuList>
-    </Menu>
+    </MenuWrap>
   )
 }
 
-export default Menu
+export default MenuHam

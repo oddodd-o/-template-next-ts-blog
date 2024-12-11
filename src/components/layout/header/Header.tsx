@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import { Button, Flex, Spacer } from '@chakra-ui/react'
+import MenuHam from './Menu'
 
 const Header = () => {
   return (
@@ -20,7 +21,7 @@ const Header = () => {
           <Button colorScheme='teal' variant='ghost'>
             나의 정보
           </Button>
-          
+          <MenuHam />
         </div>
       </Flex>
     </header>
