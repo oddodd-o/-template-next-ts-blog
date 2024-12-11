@@ -18,9 +18,6 @@ const Header = () => {
           <Button colorScheme='teal' variant='ghost'>
             검색
           </Button>
-          <Button colorScheme='teal' variant='ghost'>
-            나의 정보
-          </Button>
           <MenuHam />
         </div>
       </Flex>

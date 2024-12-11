@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '../styles/globals.css';
 import { ChakraProvider, extendTheme, ThemeConfig } from '@chakra-ui/react';
 import Header from '@/components/layout/header/Header';
 
