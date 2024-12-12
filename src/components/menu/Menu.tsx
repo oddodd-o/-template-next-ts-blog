@@ -34,4 +34,4 @@ const Menu = ({buttonText, items, variant = "solid"}: IMenuProps) => {
   )
 }
 
-export default CustomMenu
+export default Menu

@@ -1,8 +1,10 @@
 'use client'
 
+import Card from "@/components/card/Card"
 import Container from "@/components/layout/Container"
 import Menu from "@/components/menu/Menu"
-import { Flex, Spacer } from "@chakra-ui/react"
+import BlogPost from "@/components/post/BlogPost"
+import { Button, Flex, Spacer } from "@chakra-ui/react"
 import { EllipsisVertical } from "lucide-react"
 import Link from "next/link"
 
@@ -25,11 +27,15 @@ const settingMenuItems = [
 export default function Home() {
 
   return (
-    <Container>
+    <Container className="flex flex-col gap-5">
       <Flex>
         <nav>
           <ul className="flex gap-3">
-            <li><Link href="#">트렌딩</Link></li>
+            <li>
+              <Button as={Link} href={'/trending'} colorScheme='teal' variant='link'>
+                트렌딩
+              </Button>
+              </li>
             <li><Link href="#">최근</Link></li>
             <li><Link href="#">피드</Link></li>
           </ul>
@@ -40,6 +46,10 @@ export default function Home() {
           <Menu buttonText={<EllipsisVertical />} items={settingMenuItems} variant="ghost"/>
         </div>
       </Flex>
+
+      {/* BlogPost */}
+      <BlogPost isCard />
+      <BlogPost />
 
     </Container>
   )
