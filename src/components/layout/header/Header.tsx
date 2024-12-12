@@ -6,10 +6,6 @@ import { Button, Flex, Spacer } from '@chakra-ui/react'
 import MenuHam from './Menu'
 import { Bell, Search } from 'lucide-react'
 
-const headerButtons = [
-  {label: '알림', icon: Bell, onClick: () => {alarm()}},
-  {label: '검색', icon: Search, onClick: () => {search()}},
-]
 
 const alarm = () => {
   console.log('알림')
@@ -18,6 +14,10 @@ const alarm = () => {
 const search = () => {
   console.log('검색')
 }
+const headerButtons = [
+  {label: '알림', icon: Bell, onClick: () => {alarm()}},
+  {label: '검색', icon: Search, onClick: () => {search()}},
+]
 
 const Header = () => {
   return (
