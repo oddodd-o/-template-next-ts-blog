@@ -48,7 +48,7 @@ export const YouTubePreview = ({ videoId, title }: YouTubePreviewProps) => {
       ) : (
         // YouTube iframe (호버 시)
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`}
+          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0`}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           className="absolute inset-0 w-full h-full"
