@@ -1,8 +1,9 @@
 'use client'
 
 import Container from "@/components/layout/Container"
-import CustomMenu from "@/components/menu/CustomMenu"
+import Menu from "@/components/menu/Menu"
 import { Flex, Spacer } from "@chakra-ui/react"
+import { EllipsisVertical } from "lucide-react"
 import Link from "next/link"
 
 const periodMenuItems = [
@@ -35,8 +36,8 @@ export default function Home() {
         </nav>
         <Spacer />
         <div className="flex gap-3">
-          <CustomMenu buttonText="이번주" items={periodMenuItems}/>
-          <CustomMenu buttonText="삼발이" items={settingMenuItems}/>
+          <Menu buttonText="이번주" items={periodMenuItems}/>
+          <Menu buttonText={<EllipsisVertical />} items={settingMenuItems} variant="ghost"/>
         </div>
       </Flex>
 

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Button, Menu, MenuButton, MenuItem, MenuList, Spacer } from "@chakra-ui/react"
+import React, { ReactNode } from 'react'
+import { Button, Menu as CustomMenu, MenuButton, MenuItem, MenuList, Spacer } from "@chakra-ui/react"
 import { ChevronDownIcon } from 'lucide-react'
 
 // 객체 타입 정의
@@ -9,14 +9,17 @@ interface IMenuItem {
 }
 
 interface IMenuProps {
-  buttonText: string;
+  buttonText: ReactNode;
   items: IMenuItem[]; // 객체 배열
+  variant?: string;
 }
 
-const CustomMenu = ({buttonText, items}: IMenuProps) => {
+const Menu = ({buttonText, items, variant = "solid"}: IMenuProps) => {
   return (
-    <Menu>
-      <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+    <CustomMenu>
+      <MenuButton variant={variant} as={Button} 
+        rightIcon={typeof buttonText === 'string' ? <ChevronDownIcon /> : undefined}
+      >
         {buttonText}
       </MenuButton>
       <MenuList>
@@ -27,7 +30,7 @@ const CustomMenu = ({buttonText, items}: IMenuProps) => {
           </MenuItem>
         ))}
       </MenuList>
-    </Menu>
+    </CustomMenu>
   )
 }
 
