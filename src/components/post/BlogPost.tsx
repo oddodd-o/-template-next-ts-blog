@@ -4,52 +4,22 @@ import Image from 'next/image';
 import { Heart, Zap } from 'lucide-react';
 import { Avatar } from '@chakra-ui/react';
 import { YouTubePreview } from './YouTubePreview';
+import PostBody from './PostBody';
+import PostFoot from './PostFoot';
+import { IBlogPost, IBlogPostProps } from '@/types/blog.types';
 
-interface IBlogPostProps {
-  isCard?: boolean;
-}
-
-const BlogPost = ({isCard}: IBlogPostProps) => {
+const BlogPost = ({isCard, data}: IBlogPostProps) => {
 
   const Wrapper = isCard ? Card : 'div';
   // const wrapperClass = isCard ? 'bg-white' : '';
 
-
   return (
     <Wrapper>
       {/* PostBody */}
-      <div className='flex flex-col gap-4'>
-        <YouTubePreview
-          videoId="xRDKQic90dE" // 실제 YouTube 비디오 ID로 변경
-          title="[조작집🎵] '바람' IU Live Clip (With 윤하)"
-        />
-        {/* <Image src="/images/pattern/thumb/blog1.jpeg" alt="아이유" width={500} height={500} className='w-full aspect-video' /> */}
-        <div className='pt-4 pb-8 px-4 flex flex-col gap-2'>
-          <strong className='text-xl line-clamp-2'>아이유 예뻐.. 너무너무 예뻐. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure nisi porro, in culpa illo, eaque perferendis quaerat molestias voluptatibus natus, delectus similique. Placeat quos, dolorem sint soluta libero cumque quae?</strong>
-          <p className='opacity-70 line-clamp-3'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio non expedita dicta, dolor maiores nobis ut quis alias nemo esse est repellendus dolorum sint ratione rem quibusdam doloribus molestiae necessitatibus?</p>
-        </div>
-      </div>
+      <PostBody data={data} />
 
       {/* PostFooter */}
-      <div className="flex flex-col text-sm divide-y">
-        <div className="flex items-center gap-2 px-4 py-3">
-          <span>2024년 12월 5일</span>
-          <span>·</span>
-          <span>6개의 댓글</span>
-        </div>
-        
-        <div className='flex justify-between px-4 py-3'>
-          <div className="flex items-center gap-2">
-            <Avatar src="/images/pattern/thumb/blog1.jpeg" size='sm' />
-            <span>by odada</span>
-          </div>
-          <div className='flex gap-2'>
-            <Heart className="w-5 h-5 text-[#FF6B00]" />
-            <span>104</span>
-          </div>
-        </div>
-      </div>
-
+      <PostFoot />
     </Wrapper>
   )
 }

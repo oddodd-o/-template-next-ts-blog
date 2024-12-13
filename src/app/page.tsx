@@ -7,6 +7,8 @@ import BlogPost from "@/components/post/BlogPost"
 import { Button, Flex, Spacer } from "@chakra-ui/react"
 import { EllipsisVertical } from "lucide-react"
 import Link from "next/link"
+import restaurantsBlogPosts from "@/data/restaurant-blog-posts.json"
+import { mockBlogPosts } from "@/data/restaurant-blog-posts"
 
 const periodMenuItems = [
     {
@@ -48,9 +50,11 @@ export default function Home() {
       </Flex>
 
       {/* BlogPost */}
-      <BlogPost isCard />
+      {mockBlogPosts.map((post) => (
+        <BlogPost key={post.id} isCard data={post} />
+      ))}
+      
       <BlogPost />
-
     </Container>
   )
 }
