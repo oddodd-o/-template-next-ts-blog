@@ -3,7 +3,6 @@ export interface IBlogPost {
   title: string;
   content: string;
   videoId?: string;
-  videoTitle?: string;
   imageUrl?: string;
   author: string;
   comments: number;
@@ -15,14 +14,14 @@ export interface IBlogPost {
 export interface IBlogWrapper {
   isCard?: boolean;
   type?: string;
-  data?: IBlogPost;
+  data: IBlogPost;
 }
 
 export interface IPostBody {
-  data?:IBlogPost;
+  data:IBlogPost;
 }
 
 export interface IPostFoot {
   type?: string;
-  data?: IBlogPost;
+  data: IBlogPost;
 }

@@ -49,7 +49,7 @@ export default function Home() {
         </div>
       </Flex>
 
-      {/* BlogPost */}
+      {/* feed */}
       {mockBlogPosts.map((post) => (
         <BlogPost key={post.id} isCard data={post} type="feed" />
       ))}

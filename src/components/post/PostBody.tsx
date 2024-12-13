@@ -6,22 +6,14 @@ import Image from 'next/image';
 
 
 const PostBody = ({data}: IPostBody) => {
-  // 데이터가 없을 때 컴포넌트를 렌더링하지 않도록 처리
-  if (!data) {
-    return (
-      <div className="p-8 text-center text-gray-500 bg-gray-50 rounded-lg">
-        데이터를 불러오는 중에 문제가 발생했습니다.
-      </div>
-    )
-  }
-  const {title, content, imageUrl, videoId, videoTitle} = data
+  const {title, content, imageUrl, videoId} = data
 
   return (
     <div className='flex flex-col gap-4'>
       {videoId ? (
         <YouTubePreview
               videoId={videoId}
-              title={videoTitle || title}
+              title={title}
             />
       ) : (
         // 이미지가 있을 때만 렌더링
