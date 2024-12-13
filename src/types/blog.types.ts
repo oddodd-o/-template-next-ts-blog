@@ -2,14 +2,26 @@ export interface IBlogPost {
   id: string;
   title: string;
   content: string;
-  imageUrl: string;
+  videoId?: string;
+  videoTitle?: string;
+  imageUrl?: string;
+  author: string;
+  comments: number;
+  likes: number;
+  date: string;
+  tags?: string[];
 }
 
-export interface IBlogPostProps {
+export interface IBlogWrapper {
   isCard?: boolean;
   data?: IBlogPost;
 }
 
 export interface IPostBody {
   data?:IBlogPost;
+}
+
+export interface IPostFoot {
+  type?: string;
+  data?: IBlogPost;
 }

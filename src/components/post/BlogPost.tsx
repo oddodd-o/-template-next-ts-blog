@@ -6,9 +6,9 @@ import { Avatar } from '@chakra-ui/react';
 import { YouTubePreview } from './YouTubePreview';
 import PostBody from './PostBody';
 import PostFoot from './PostFoot';
-import { IBlogPost, IBlogPostProps } from '@/types/blog.types';
+import { IBlogWrapper } from '@/types/blog.types';
 
-const BlogPost = ({isCard, data}: IBlogPostProps) => {
+const BlogPost = ({isCard, data}: IBlogWrapper) => {
 
   const Wrapper = isCard ? Card : 'div';
   // const wrapperClass = isCard ? 'bg-white' : '';
@@ -19,7 +19,8 @@ const BlogPost = ({isCard, data}: IBlogPostProps) => {
       <PostBody data={data} />
 
       {/* PostFooter */}
-      <PostFoot />
+      <PostFoot type="feed" data={data} />
+      <PostFoot type="personal" data={data}/>
     </Wrapper>
   )
 }
