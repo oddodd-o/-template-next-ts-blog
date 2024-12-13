@@ -4,6 +4,7 @@ import { Heart } from 'lucide-react'
 import React from 'react'
 import Like from '../common/Like';
 import { getRelativeTime } from '@/utils/date';
+import AuthorInfo from '../common/AuthorInfo';
 
 const PostFoot = ({data, type = "feed"}: IPostFoot) => {
   const { date, likes, author, tags } = data;
@@ -20,11 +21,8 @@ const PostFoot = ({data, type = "feed"}: IPostFoot) => {
           </div>
           
           <div className='flex justify-between px-4 py-3'>
-            <div className="flex items-center gap-2">
-              <Avatar src="/images/pattern/thumb/blog1.jpeg" size='sm' />
-              <span className='text-xs'>by {author}</span>
-            </div>
-           <Like data={data} />
+            <AuthorInfo data={data} />
+            <Like data={data} />
           </div>
         </div>
     )
@@ -41,7 +39,7 @@ const PostFoot = ({data, type = "feed"}: IPostFoot) => {
             </div>
             )}
           <div className="flex items-center gap-2 px-4 py-3">
-            <span className='text-xs'>{date}</span>
+            <span className='text-xs'>{relativeTime}</span>
             <span>·</span>
             <CommentCount data={data} />
             <span>·</span>
