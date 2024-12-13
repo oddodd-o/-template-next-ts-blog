@@ -51,7 +51,7 @@ export default function Home() {
 
       {/* BlogPost */}
       {mockBlogPosts.map((post) => (
-        <BlogPost key={post.id} isCard data={post} />
+        <BlogPost key={post.id} isCard data={post} type="feed" />
       ))}
     </Container>
   )

@@ -3,7 +3,7 @@ import { Avatar } from '@chakra-ui/react'
 import { Heart } from 'lucide-react'
 import React from 'react'
 
-const PostFoot = ({data, type = 'feed'}: IPostFoot) => {
+const PostFoot = ({data, type = "feed"}: IPostFoot) => {
 
   if (!data) {
     return (

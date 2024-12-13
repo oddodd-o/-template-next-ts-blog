@@ -4,9 +4,10 @@ import { IBlogPost } from "@/types/blog.types";
 export const mockBlogPosts: IBlogPost[] = [
   {
     id: "post_2024_001",
-    title: "홍대 플래터 맛집 '쉐어링테이블'",
-    content: "홍대 골목에서 발견한 작은 브런치 카페. 4가지 치즈와 프로슈토, 올리브가 어우러진 플래터가 정말 훌륭했어요. 특히 꿀을 곁들인 브리치즈가 와인과 찰떡이었죠. 친구들과 오후에 가볍게 와인 한잔하기 좋은 곳이에요.",
-    imageUrl: "https://images.unsplash.com/photo-1546039907-7fa05f864c02",
+    title: "[흑백요리사] 7인의 무한 두부 첫요리'",
+    content: "결승으로 가는 관문, 무한 요리 지옥이 열렸다. 재료는 두부, 과연 두부 지옥에서 살아남을 셰프는 누가 될까?",
+    videoId: "3ZUL9il_beI",
+    videoTitle: "을지로 브런치 맛집 미도인의 아침",
     author: 'foodhunter',
     comments: 8,
     likes: 245,

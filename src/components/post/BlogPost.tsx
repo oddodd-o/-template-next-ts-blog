@@ -8,7 +8,7 @@ import PostBody from './PostBody';
 import PostFoot from './PostFoot';
 import { IBlogWrapper } from '@/types/blog.types';
 
-const BlogPost = ({isCard, data}: IBlogWrapper) => {
+const BlogPost = ({isCard, type = "feed", data}: IBlogWrapper) => {
 
   const Wrapper = isCard ? Card : 'div';
   // const wrapperClass = isCard ? 'bg-white' : '';
@@ -19,8 +19,7 @@ const BlogPost = ({isCard, data}: IBlogWrapper) => {
       <PostBody data={data} />
 
       {/* PostFooter */}
-      <PostFoot type="feed" data={data} />
-      <PostFoot type="personal" data={data}/>
+      <PostFoot data={data} type={type} />
     </Wrapper>
   )
 }

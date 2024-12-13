@@ -14,6 +14,7 @@ export interface IBlogPost {
 
 export interface IBlogWrapper {
   isCard?: boolean;
+  type?: string;
   data?: IBlogPost;
 }
 
