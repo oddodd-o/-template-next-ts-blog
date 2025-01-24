@@ -8,8 +8,12 @@ import {
   Avatar,
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from 'lucide-react'
+import {useAuth} from "@/lib/firebase/useAuth";
 
 const MenuHam = () => {
+
+    const {logout} = useAuth()
+
   return (
     <MenuWrap>
       <MenuButton as={Button} rightIcon={<ChevronDownIcon size={14} />}  variant='ghost' size="sm">
@@ -22,6 +26,9 @@ const MenuHam = () => {
         <MenuItem>Mark as Draft</MenuItem>
         <MenuItem>Delete</MenuItem>
         <MenuItem>Attend a Workshop</MenuItem>
+        <MenuItem>
+            <Button onClick={logout}>logout</Button>
+        </MenuItem>
       </MenuList>
     </MenuWrap>
   )

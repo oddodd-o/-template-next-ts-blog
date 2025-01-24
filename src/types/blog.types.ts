@@ -1,5 +1,5 @@
 export interface IBlogPost {
-  id: string;
+  id: number;
   title: string;
   content: string;
   videoId?: string;

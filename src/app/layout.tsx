@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { ChakraProvider, extendTheme, ThemeConfig } from '@chakra-ui/react';
-import Header from '@/components/layout/header/Header';
-import { Providers } from '@/components/providers/chakra';
-import { Wrap } from '@/components/layout/Container';
+import ClientLayout from "@/components/layout/ClientLayout";
 
 export const metadata: Metadata = {
   title: 'next.js template',
@@ -36,13 +33,7 @@ export default function RootLayout({
     return (
         <html lang='ko'>
             <body>
-                <Providers>
-                    <Wrap>
-                        <Header />
-                        <main>{children}</main>
-                        <footer>푸터</footer>
-                    </Wrap>
-                </Providers>
+                    <ClientLayout>{children}</ClientLayout>
             </body>
         </html>
     );

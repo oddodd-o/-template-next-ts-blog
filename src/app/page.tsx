@@ -31,7 +31,7 @@ export default function Home() {
   return (
     <Container className="flex flex-col gap-5">
       <Flex>
-        <nav>
+        <nav className="flex items-center">
           <ul className="flex gap-3">
             <li>
               <Button as={Link} href={'/trending'} colorScheme='teal' variant='link'>
@@ -50,9 +50,11 @@ export default function Home() {
       </Flex>
 
       {/* feed */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {mockBlogPosts.map((post) => (
         <BlogPost key={post.id} isCard data={post} type="feed" />
       ))}
+      </div>
     </Container>
   )
 }

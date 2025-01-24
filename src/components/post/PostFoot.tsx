@@ -5,6 +5,7 @@ import React from 'react'
 import Like from '../common/Like';
 import { getRelativeTime } from '@/utils/date';
 import AuthorInfo from '../common/AuthorInfo';
+import {Button} from "@/components/ui/button";
 
 const PostFoot = ({data, type = "feed"}: IPostFoot) => {
   const { date, likes, author, tags } = data;
@@ -13,7 +14,7 @@ const PostFoot = ({data, type = "feed"}: IPostFoot) => {
   // feed 일 경우
   if(type === 'feed') {
     return (
-      <div className="flex flex-col text-sm divide-y">
+      <div className="flex flex-col text-sm divide-y mt-auto">
           <div className="flex items-center gap-2 px-4 py-3">
             <span className='text-xs'>{relativeTime}</span>
             <span className='text-xs'>·</span>
@@ -30,7 +31,7 @@ const PostFoot = ({data, type = "feed"}: IPostFoot) => {
 
   // personal 일 경우
   return (
-      <div className="flex flex-col text-sm">
+      <div className="flex flex-col text-sm mt-auto">
             {tags && (
               <div className="flex flex-wrap gap-2 px-4 py-3">
               {tags.map((tag, index) => (
