@@ -5,7 +5,7 @@ import React from 'react'
 import { Button, Flex, Spacer } from '@chakra-ui/react'
 import MenuHam from './Menu'
 import { Bell, Search } from 'lucide-react'
-import {useAuth} from "@/lib/firebase/useAuth";
+import {useAuth} from "@/lib/firebase/auth";
 
 const alarm = () => {
   console.log('알림')
@@ -19,9 +19,10 @@ const headerButtons = [
   {label: '검색', icon: Search, onClick: () => {search()}},
 ]
 
-const {user} = useAuth()
-
 const Header = () => {
+
+  const {user} = useAuth();
+
   return (
     <header className='py-3'>
       <Flex className='items-center px-5 md:px-8'>
@@ -40,7 +41,7 @@ const Header = () => {
           {user ? (
               <MenuHam />
           ) : (
-              <Button>로그인</Button>
+              <Link href={'/login'} >로그인</Link>
           )}
 
         </div>

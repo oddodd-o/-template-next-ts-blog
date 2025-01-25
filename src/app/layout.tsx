@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import ClientLayout from "@/components/layout/ClientLayout";
+import {AuthProvider} from "@/lib/firebase/auth";
+import Header from "@/components/layout/header/Header";
 
 export const metadata: Metadata = {
   title: 'next.js template',
@@ -33,7 +34,10 @@ export default function RootLayout({
     return (
         <html lang='ko'>
             <body>
-                    <ClientLayout>{children}</ClientLayout>
+                <AuthProvider>
+                    <Header />
+                    {children}
+                </AuthProvider>
             </body>
         </html>
     );
