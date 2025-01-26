@@ -24,7 +24,7 @@ const MenuHam = () => {
           </Avatar>
 
       </MenuButton>
-      <MenuList className="bg-white">
+      <MenuList className="bg-white border border-gray-100 border-solid rounded-lg p-5">
           <MenuItem>
               <Button onClick={logout}>logout</Button>
           </MenuItem>

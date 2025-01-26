@@ -24,7 +24,7 @@ const Header = () => {
   const {user} = useAuth();
 
   return (
-    <header className='py-3'>
+    <header className='py-3 relative z-50'>
       <Flex className='items-center px-5 md:px-8'>
         <h1>
           <Link href={'/'}>logo</Link>
