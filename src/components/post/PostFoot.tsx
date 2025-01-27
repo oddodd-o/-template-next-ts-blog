@@ -1,11 +1,9 @@
 import { IBlogPost, IPostFoot } from '@/types/blog.types';
-import { Avatar } from '@chakra-ui/react'
 import { Heart } from 'lucide-react'
 import React from 'react'
 import Like from '../common/Like';
 import { getRelativeTime } from '@/utils/date';
 import AuthorInfo from '../common/AuthorInfo';
-import {Button} from "@/components/ui/button";
 
 const PostFoot = ({data, type = "feed"}: IPostFoot) => {
   const { date, likes, author, tags } = data;
@@ -22,7 +20,7 @@ const PostFoot = ({data, type = "feed"}: IPostFoot) => {
           </div>
           
           <div className='flex justify-between px-4 py-3'>
-            <AuthorInfo data={data} />
+              <AuthorInfo data={data} />
             <Like data={data} />
           </div>
         </div>

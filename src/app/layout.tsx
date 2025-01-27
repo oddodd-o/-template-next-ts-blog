@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import {AuthProvider} from "@/lib/firebase/auth";
 import Header from "@/components/layout/header/Header";
+import {ToastContainer} from "react-toastify";
 
 export const metadata: Metadata = {
   title: 'next.js template',
@@ -35,6 +36,7 @@ export default function RootLayout({
         <html lang='ko'>
             <body>
                 <AuthProvider>
+                    <ToastContainer />
                     <Header />
                     {children}
                 </AuthProvider>

@@ -26,8 +26,8 @@ export default function RegisterPage() {
     const [passwordConfirm, setPasswordConfirm] = useState('');
 
     // 이메일 회원가입 처리
-    const handleRegister = async (event: any) => {
-        event.preventDefault();
+    const handleRegister = async (e: any) => {
+        e.preventDefault();
 
         // 유효성 검사
         if (password !== passwordConfirm) {
@@ -36,7 +36,16 @@ export default function RegisterPage() {
         }
 
         try {
-            await register(email, password);
+            const userCredential = await register(email, password);
+            const user = userCredential.user;
+
+            // displayName 업데이트
+            if(user) {
+                await user.updateProfile({
+                    displayName: displayName,
+                });
+            }
+
             router.push('/');
         } catch (err) {
             setError('회원가입 실패: 이메일 형식이 올바르지 않거나 비밀번호가 너무 짧습니다.');
