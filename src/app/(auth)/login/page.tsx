@@ -1,123 +1,196 @@
 "use client";
 
-import {SlimLayout} from "@/components/layout/SlimLayout";
-import {useAuth} from "@/lib/firebase/auth";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
-import {TextField} from "@/components/form/Fields";
-import {Button} from "@/components/ui/button";
+import { SlimLayout } from "@/components/layout/SlimLayout";
+import { useAuth } from "@/lib/firebase/auth";
+import { useRouter } from "next/navigation";
+import { useState, useCallback } from "react";
+import { TextField } from "@/components/form/Fields";
+import { Button } from "@/components/ui/button";
+import { toast } from "react-toastify";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Loader2 } from "lucide-react";
+
+interface FormErrors {
+    email?: string;
+    password?: string;
+    general?: string;
+}
 
 export default function LoginPage() {
-    const { login, loginWithGoogle } = useAuth()
-    const router = useRouter()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const { login, loginWithGoogle } = useAuth();
+    const router = useRouter();
 
-    const [emailError, setEmailError] = useState('')
-    const [passwordError, setPasswordError] = useState('')
+    // Form state
+    const [formData, setFormData] = useState({
+        email: "",
+        password: "",
+    });
+    const [errors, setErrors] = useState<FormErrors>({});
+    const [isLoading, setIsLoading] = useState(false);
+    const [attempts, setAttempts] = useState(0);
 
-    const onSubmit = async (e: any) => {
-        e.preventDefault()
+    // Form validation
+    const validateForm = useCallback(() => {
+        const newErrors: FormErrors = {};
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!formData.email) {
+            newErrors.email = "이메일을 입력해주세요.";
+        } else if (!emailRegex.test(formData.email)) {
+            newErrors.email = "올바른 이메일 형식이 아닙니다.";
+        }
+
+        if (!formData.password) {
+            newErrors.password = "비밀번호를 입력해주세요.";
+        } else if (formData.password.length < 6) {
+            newErrors.password = "비밀번호는 6자 이상이어야 합니다.";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    }, [formData]);
+
+    // Handle input changes
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+        if (errors[name as keyof FormErrors]) {
+            setErrors(prev => ({ ...prev, [name]: "" }));
+        }
+    };
+
+    // Handle form submission
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!validateForm()) return;
+
+        if (attempts >= 5) {
+            setErrors({ general: "로그인 시도가 너무 많습니다. 잠시 후 다시 시도해주세요." });
+            return;
+        }
+
+        setIsLoading(true);
         try {
-            await login(email, password)
-            router.push('/')
+            await login(formData.email, formData.password);
+            toast.success("로그인되었습니다.");
+            router.push("/");
         } catch (err) {
-            setEmailError('로그인 실패: 잘못된 이메일 또는 비밀번호입니다.')
+            setAttempts(prev => prev + 1);
+            toast.error("로그인에 실패했습니다.");
+            setErrors({ general: "이메일 또는 비밀번호가 올바르지 않습니다." });
+        } finally {
+            setIsLoading(false);
         }
-    }
+    };
 
-    const onChange = (e: any) => {
-        // e.target.name, e.target.value
-        const { target: { name, value } } = e
-        if (name === 'email') {
-            setEmail(value)
-
-            const validRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-
-            // value가 이메일 형식이 아니라면
-            if (!validRegex.test(value)) {
-                setEmailError('이메일 형식이 잘못되었습니다.')
-            } else {
-                setEmailError('')
-            }
+    // Handle Google login
+    const handleGoogleLogin = async () => {
+        setIsLoading(true);
+        try {
+            await loginWithGoogle();
+            toast.success("로그인되었습니다.");
+            router.push("/");
+        } catch (err) {
+            toast.error("Google 로그인에 실패했습니다.");
+        } finally {
+            setIsLoading(false);
         }
-
-        if (name === 'password') {
-            setPassword(value)
-
-            // 비밀번호가 6자리 이하라면
-            if (value.length < 6) {
-                setPasswordError('비밀번호는 6자리 이상이어야 합니다.')
-            } else {
-                setPasswordError('')
-            }
-        }
-    }
+    };
 
     return (
         <SlimLayout>
             <div>
                 <img
-                    alt="Your Company"
+                    alt="로고"
                     src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=600"
                     className="h-10 w-auto"
                 />
-                <h2 className="mt-8 text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
-                <p className="mt-2 text-sm/6 text-gray-500">
-                    Not a member?{' '}
-                    <a href="/register" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                <h1 className="mt-8 text-2xl font-bold tracking-tight text-gray-900">
+                    로그인
+                </h1>
+                <p className="mt-2 text-sm text-gray-500">
+                    계정이 없으신가요?{" "}
+                    <a
+                        href="/register"
+                        className="font-semibold text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline"
+                    >
                         회원가입
                     </a>
                 </p>
             </div>
 
             <div className="mt-10">
-                <div>
-                    <form action="#" className="mt-10 grid grid-cols-1 gap-y-8" onSubmit={onSubmit}>
-                        <TextField
-                            label="이메일"
-                            name="email"
-                            type="email"
-                            autoComplete="email"
-                            required
-                            value={email}
-                            onChange={onChange}
-                        />
-                        <TextField
-                            label="비밀번호"
-                            name="password"
-                            type="password"
-                            autoComplete="current-password"
-                            required
-                            value={password}
-                            onChange={onChange}
-                        />
-                        <div>
-                            <Button type="submit" color="blue" className="w-full">
-            <span>
-              Sign in <span aria-hidden="true">&rarr;</span>
-            </span>
-                            </Button>
-                        </div>
-                    </form>
-                </div>
+                {errors.general && (
+                    <Alert variant="destructive" className="mb-6">
+                        <AlertDescription>{errors.general}</AlertDescription>
+                    </Alert>
+                )}
 
-                <div className="mt-10">
+                <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+                    <TextField
+                        label="이메일"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        required
+                        value={formData.email}
+                        onChange={handleChange}
+                        error={errors.email}
+                        disabled={isLoading}
+                        aria-invalid={!!errors.email}
+                        aria-describedby={errors.email ? "email-error" : undefined}
+                    />
+                    <TextField
+                        label="비밀번호"
+                        name="password"
+                        type="password"
+                        autoComplete="current-password"
+                        required
+                        value={formData.password}
+                        onChange={handleChange}
+                        error={errors.password}
+                        disabled={isLoading}
+                        aria-invalid={!!errors.password}
+                        aria-describedby={errors.password ? "password-error" : undefined}
+                    />
+
+                    <Button
+                        type="submit"
+                        className="w-full"
+                        disabled={isLoading}
+                        aria-busy={isLoading}
+                    >
+                        {isLoading ? (
+                            <>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                로그인 중...
+                            </>
+                        ) : (
+                            "로그인"
+                        )}
+                    </Button>
+                </form>
+
+                <div className="mt-6">
                     <div className="relative">
-                        <div aria-hidden="true" className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-gray-200"/>
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-gray-200" />
                         </div>
-                        <div className="relative flex justify-center text-sm/6 font-medium">
-                            <span className="bg-white px-6 text-gray-900">Or continue with</span>
+                        <div className="relative flex justify-center text-sm">
+                            <span className="bg-white px-4 text-gray-500">또는</span>
                         </div>
                     </div>
 
                     <div className="mt-6 grid grid-cols-2 gap-4">
-                        <button
-                            onClick={loginWithGoogle}
-                            className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 focus-visible:ring-transparent"
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleGoogleLogin}
+                            disabled={isLoading}
+                            className="w-full"
                         >
-                            <svg viewBox="0 0 24 24" aria-hidden="true" className="h-5 w-5">
+                            <svg viewBox="0 0 24 24" className="mr-2 h-5 w-5">
                                 <path
                                     d="M12.0003 4.75C13.7703 4.75 15.3553 5.36002 16.6053 6.54998L20.0303 3.125C17.9502 1.19 15.2353 0 12.0003 0C7.31028 0 3.25527 2.69 1.28027 6.60998L5.27028 9.70498C6.21525 6.86002 8.87028 4.75 12.0003 4.75Z"
                                     fill="#EA4335"
@@ -135,25 +208,32 @@ export default function LoginPage() {
                                     fill="#34A853"
                                 />
                             </svg>
-                            <span className="text-sm/6 font-semibold">Google</span>
-                        </button>
+                            Google로 계속하기
+                        </Button>
 
-                        <a
-                            href="#"
-                            className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 shadow-xs ring-gray-300 ring-inset hover:bg-gray-50 focus-visible:ring-transparent"
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="w-full"
+                            disabled={isLoading}
                         >
-                            <svg fill="currentColor" viewBox="0 0 20 20" aria-hidden="true" className="size-5 fill-[#24292F]">
+                            <svg
+                                className="mr-2 h-5 w-5"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                            >
                                 <path
+                                    fillRule="evenodd"
                                     d="M10 0C4.477 0 0 4.484 0 10.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0110 4.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.203 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.942.359.31.678.921.678 1.856 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0020 10.017C20 4.484 15.522 0 10 0z"
                                     clipRule="evenodd"
-                                    fillRule="evenodd"
                                 />
                             </svg>
-                            <span className="text-sm/6 font-semibold">GitHub</span>
-                        </a>
+                            GitHub로 계속하기
+                        </Button>
                     </div>
                 </div>
             </div>
         </SlimLayout>
-    )
+    );
 }
